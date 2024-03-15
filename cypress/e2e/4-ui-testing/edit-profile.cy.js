@@ -2,11 +2,12 @@ describe('Edit Account Information', () => {
     let password = 'Hanitest123'
     beforeEach(() => {
         cy.visit('https://magento.softwaretestingboard.com/')
-        cy.contains('Sign In').click() 
+        cy.contains('Sign In', { timeout: 10000 }).click() 
         cy.get('#email').type('hani.test@mailinator.com')
         cy.get('#pass').type(password) 
         cy.get('#send2').click()
-        cy.contains('Welcome')
+        cy.wait(7000),
+        cy.contains('Welcome', { timeout: 20000 }),
         cy.get(':nth-child(2) > .customer-welcome > .customer-name > .action').click()
         cy.get(':nth-child(2) > .customer-welcome > .customer-menu > .header > :nth-child(1) > a').click()
         cy.contains('My Account')
@@ -30,7 +31,7 @@ describe('Edit Account Information', () => {
         cy.get('#lastname').type('success')
         cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
         cy.get('.message-success').should('contain.text', 'You saved the account information.')
-        cy.contains('hani edit')
+        cy.contains('hani edit', { timeout: 10000 })
         cy.contains('success')
 
       })
@@ -41,14 +42,15 @@ describe('Change Email', () => {
     let password = 'Hanitest123'
     beforeEach(() => {
         cy.visit('https://magento.softwaretestingboard.com/')
-        cy.contains('Sign In').click() 
+        cy.contains('Sign In', { timeout: 10000 }).click() 
         cy.get('#email').type('hani.test@mailinator.com')
         cy.get('#pass').type(password) 
         cy.get('#send2').click()
-        cy.contains('Welcome')
+        cy.wait(7000),
+        cy.contains('Welcome', { timeout: 10000 })
         cy.get(':nth-child(2) > .customer-welcome > .customer-name > .action').click()
         cy.get(':nth-child(2) > .customer-welcome > .customer-menu > .header > :nth-child(1) > a').click()
-        cy.contains('My Account')
+        cy.contains('My Account', { timeout: 10000 })
     })
 
       it('Negative Case - Change Email with Incrrect Email Format', () => {
@@ -60,19 +62,19 @@ describe('Change Email', () => {
         cy.get('#email').type('hani.test')
         cy.get('#current-password').type(password)
         cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
-        cy.get('#email-error').should('contain.text', 'Please enter a valid email address.')
+        cy.get('#email-error').should('contain.text', 'Please enter a valid email address.', { timeout: 10000 })
       })
 
       it('Negative Case - Change Email with Wrong Current Password', () => {
         cy.get('.block-dashboard-info > .block-content > .box > .box-actions > .edit > span').click()
-        cy.contains('Edit Account Information')
+        cy.contains('Edit Account Information', { timeout: 10000 })
         cy.get('#change-email').click()
         cy.get('.fieldset.password > .legend > span').should('contain.text', 'Change Email')
         cy.get('#email').clear()
         cy.get('#email').type('hani.test@mailinator.com')
         cy.get('#current-password').type('test123')
         cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
-        cy.get('.message-error').should('contain.text', "The password doesn't match this account. Verify the password and try again.")
+        cy.get('.message-error').should('contain.text', "The password doesn't match this account. Verify the password and try again.", { timeout: 10000 })
       })
 
       it('Ensure All Fields in Change Email are Mandatory', () => {
@@ -88,7 +90,7 @@ describe('Change Email', () => {
 
       it('Change Email with Correct Email Format', () => {
         cy.get('.block-dashboard-info > .block-content > .box > .box-actions > .edit > span').click()
-        cy.contains('Edit Account Information')
+        cy.contains('Edit Account Information', { timeout: 10000 })
         cy.get('#change-email').click()
         cy.get('.fieldset.password > .legend > span').should('contain.text', 'Change Email')
         cy.get('#email').clear()
@@ -108,14 +110,15 @@ describe('Change Password', () => {
     let password = 'Hanitest123'
     beforeEach(() => {
         cy.visit('https://magento.softwaretestingboard.com/')
-        cy.contains('Sign In').click() 
+        cy.contains('Sign In', { timeout: 10000 }).click() 
         cy.get('#email').type('hani.qa@mailinator.com')
         cy.get('#pass').type(password) 
         cy.get('#send2').click()
-        cy.contains('Welcome')
+        cy.wait(7000),
+        cy.contains('Welcome', { timeout: 20000 })
         cy.get(':nth-child(2) > .customer-welcome > .customer-name > .action').click()
         cy.get(':nth-child(2) > .customer-welcome > .customer-menu > .header > :nth-child(1) > a').click()
-        cy.contains('My Account')
+        cy.contains('My Account', { timeout: 10000 })
     })
 
     it('Ensure All Fields in Change Password are Mandatory', () => {
@@ -139,7 +142,7 @@ describe('Change Password', () => {
         cy.get('#password').type('Testaja123')
         cy.get('#password-confirmation').type('Testaja123')
         cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
-        cy.get('.message-error').should('contain.text', "The password doesn't match this account. Verify the password and try again.")
+        cy.get('.message-error').should('contain.text', "The password doesn't match this account. Verify the password and try again.", { timeout: 10000 })
     })
 
     it('Change Password with Weak Password', () => {
@@ -163,6 +166,6 @@ describe('Change Password', () => {
         cy.get('#password').type('Testaja123')
         cy.get('#password-confirmation').type('Testaja123')
         cy.get('#form-validate > .actions-toolbar > div.primary > .action').click()
-        cy.get('.message-success').should('contain.text', "You saved the account information.")
+        cy.get('.message-success').should('contain.text', "You saved the account information.", { timeout: 10000 })
     })
 })
