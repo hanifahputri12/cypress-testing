@@ -1,2 +1,2 @@
 # cypress-testing
-this is hani's repository to automated testing with cypress
+this is Hani's repository for automated testing with cypress
